@@ -26,7 +26,8 @@ const ConformForm = () => {
     validate,
     onSubmit: (values) => {
       const newData = handleData(values);
-      console.log("new:", newData);
+      console.table(newData.correctiveActions);
+      console.table(newData.correctiveActions);
     },
   });
   return (

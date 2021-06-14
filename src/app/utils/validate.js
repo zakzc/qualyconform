@@ -1,5 +1,4 @@
 const validate = (values) => {
-  console.log("val for", values);
   const errors = {};
 
   if (!values.description) {
