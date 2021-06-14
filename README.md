@@ -1,6 +1,29 @@
-# Getting Started with Create React App
+
+
+# Qualy Conform
+
+
+
+## What is this project  for:
+
+This is the project of a form for registration of non-conformities with indication of date, affected departments, a description of the non conformity and the corrective actions that need to be taken. Also, it displays the data and updates it.
+
+
+
+### Technologies used:
+
+This project was developed using:
+
+* React
+* Formik
+
+
+
+## Create React App ReadMe
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
 
 ## Available Scripts
 

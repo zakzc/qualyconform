@@ -1,8 +1,8 @@
 import React from "react";
-// utils
 import { useFormik } from "formik";
-// validation
+// utils
 import validate from "../utils/validate";
+import handleData from "../utils/handleData";
 // ui
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -17,12 +17,16 @@ const ConformForm = () => {
       date: "",
       department: [],
       description: "",
-      correctiveActions: { what: "", how: "", why: "", where: "", until: "" },
+      what: "",
+      how: "",
+      why: "",
+      where: "",
+      until: "",
     },
     validate,
     onSubmit: (values) => {
-      console.table(values);
-      alert(JSON.stringify(values, null, 2));
+      const newData = handleData(values);
+      console.log("new:", newData);
     },
   });
   return (
