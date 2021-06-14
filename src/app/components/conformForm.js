@@ -1,5 +1,6 @@
 import React from "react";
 // ui
+import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Col";
 import Jumbotron from "react-bootstrap/Jumbotron";
@@ -10,7 +11,7 @@ const ConformForm = () => {
   return (
     <>
       <Jumbotron>
-        <h1> Formulário de não conformidades </h1>
+        <h1> Non conformity Form </h1>
       </Jumbotron>
       <Container className="m-2">
         <Form>
@@ -19,42 +20,51 @@ const ConformForm = () => {
               <Form.Control placeholder="Data" />
             </Col>
             <Col>
-              <Form.Control placeholder="Departamentos" />
+              <Form.Group as={Col} controlId="formGridState">
+                <div className="mb-3">
+                  <Form.Check inline label="Quality" name="quality" />
+                  <Form.Check inline label="Management" name="management" />
+                  <Form.Check inline label="Sales" name="sales" />
+                </div>
+              </Form.Group>
             </Col>
           </Row>
           <Form.Control
             className="mt-3"
             as="textarea"
             rows={3}
-            placeholder="Descrição da não conformidade"
+            placeholder="Description"
           />
-          <h2 className="mt-3"> Ações corretivas </h2>
+          <h2 className="mt-3"> Corrective actions </h2>
           <Form.Control
             className="mt-1 mb-1"
-            placeholder="O que fazer:"
+            placeholder="What to do"
             as="textarea"
             rows={3}
           />
           <Form.Control
             className="mt-1 mb-1"
-            placeholder="Por que fazer:"
+            placeholder="Why to do it"
             as="textarea"
             rows={3}
           />
           <Form.Control
             className="mt-1 mb-1"
-            placeholder="Como fazer:"
+            placeholder="How to do it"
             as="textarea"
             rows={3}
           />
           <Row>
             <Col>
-              <Form.Control placeholder="Onde fazer" />
+              <Form.Control placeholder="where to do it" />
             </Col>
             <Col>
-              <Form.Control placeholder="Até quando" />
+              <Form.Control placeholder="Until when" />
             </Col>
           </Row>
+          <Button size="lg" className="mt-4" variant="info" type="submit">
+            Submit
+          </Button>
         </Form>
       </Container>
     </>
