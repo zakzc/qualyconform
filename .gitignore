@@ -1,9 +1,75 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+##################################
+# ignore hidden system files
+##################################
+.*
+~*
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+##################################
+## Node modules
+##################################
+node_modules/*
+node_modules/
+
+##################################
+## ignore OS generated files
+##################################
+ehthumbs.db
+Thumbs.db
+.DS_store
+
+##################################
+## ignore Editor files
+##################################
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+
+##################################
+# Log files and databases
+##################################
+*.log
+*.sql
+*.sqlite
+
+##################################
+## ignore compiled/executable files
+##################################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+##################################
+## ignore zipped files
+##################################
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+##################################
+## Other junk files
+##################################
+# ignore composer vendor directory
+/vendor
+# ignore components loaded via Bower
+/bower_components
+
+
+##################################
+# ignore env system files
+##################################
+.env
+
+##################################
+# React related
+##################################
 
 # testing
 /coverage
@@ -11,7 +77,10 @@
 # production
 /build
 
-# misc
+##################################
+# also:
+##################################
+
 .DS_Store
 .env.local
 .env.development.local
@@ -21,3 +90,5 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+##################################

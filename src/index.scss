@@ -1,0 +1,30 @@
+@import "~bootstrap/scss/bootstrap";
+
+#root {
+  height: 100%;
+}
+body,
+html {
+  height: 100%;
+  min-width: 100%;
+}
+
+.header {
+  text-align: center;
+}
+
+span {
+  &.dangerText {
+    color: #dc3545;
+  }
+
+  &.infoText {
+    color: #17a2b8;
+    font-weight: bold;
+  }
+}
+
+.infoText {
+  color: #17a2b8;
+  font-weight: bold;
+}
