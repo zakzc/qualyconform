@@ -19,8 +19,8 @@ const ListConform = () => {
         <h1> List of non conformities</h1>
       </Jumbotron>
       <Container className="m-2">
-        {orderedTestList.map((c) => (
-          <ListGroup className="m-2">
+        {orderedTestList.map((c, i) => (
+          <ListGroup key={i} className="m-2">
             <Row>
               <Col>
                 <ListGroup.Item className="m-1">
@@ -30,11 +30,25 @@ const ListConform = () => {
               <Col>
                 <ListGroup.Item>
                   <Row>
-                    {c["departments"].map((id) => {
-                      if (id === 1) return <span className="m-1">Quality</span>;
+                    {c["departments"].map((id, i) => {
+                      if (id === 1)
+                        return (
+                          <span key={i} className="m-1">
+                            Quality
+                          </span>
+                        );
                       if (id === 2)
-                        return <span className="m-1">Management</span>;
-                      if (id === 3) return <span className="m-1">Sales</span>;
+                        return (
+                          <span key={i} className="m-1">
+                            Management
+                          </span>
+                        );
+                      if (id === 3)
+                        return (
+                          <span key={i} className="m-1">
+                            Sales
+                          </span>
+                        );
                       return null;
                     })}
                   </Row>
