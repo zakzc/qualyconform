@@ -13,10 +13,10 @@ const Navigation = () => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="/conformForm" className="text-white">
-            Form
+            Adicionar
           </Nav.Link>
           <Nav.Link href="/listConform" className="text-white">
-            List
+            Lista
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

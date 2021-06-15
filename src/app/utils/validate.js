@@ -7,10 +7,10 @@ const validate = (values) => {
     errors.description = "Description must be at least 4 characters long";
   }
 
-  if (!values.department) {
-    errors.department = "Required";
-  } else if (values.department.length < 1) {
-    errors.department = "At least one department must be selected";
+  if (!values.departments) {
+    errors.departments = "Required";
+  } else if (values.departments.length < 1) {
+    errors.departments = "At least one department must be selected";
   }
 
   if (!values.date) {

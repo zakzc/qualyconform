@@ -7,16 +7,12 @@ import handleData from "../utils/handleData";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Col";
-import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-const ConformForm = () => {
+const ActionForm = () => {
   const formik = useFormik({
     initialValues: {
-      date: "",
-      departments: [],
-      description: "",
       what: "",
       how: "",
       why: "",
@@ -31,81 +27,9 @@ const ConformForm = () => {
   });
   return (
     <>
-      <Jumbotron>
-        <h1> Formulário de não conformidade </h1>
-      </Jumbotron>
       <Container className="m-2">
         <Form onSubmit={formik.handleSubmit}>
-          {/* <h2 className="mt-3 mb-3 text-info text-center">Não conformidade</h2> */}
-          <Row>
-            <Col>
-              <Form.Control
-                placeholder="Date"
-                id="date"
-                name="date"
-                type="date"
-                onChange={formik.handleChange}
-                value={formik.values.date}
-              />
-              {formik.errors.date ? (
-                <div className="text-danger">{formik.errors.date}</div>
-              ) : null}
-            </Col>
-            <Col>
-              <Form.Group
-                as={Col}
-                role="group"
-                controlId="checkbox-group"
-                id="checkbox-group"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.departments}
-              >
-                <div className="mb-3">
-                  <Form.Check
-                    inline
-                    type="checkbox"
-                    label="Qualidade"
-                    name="departments"
-                    value="1"
-                  />
-                  <Form.Check
-                    type="checkbox"
-                    inline
-                    label="Gerência"
-                    name="departments"
-                    value="2"
-                  />
-                  <Form.Check
-                    type="checkbox"
-                    inline
-                    label="Vendas"
-                    name="departments"
-                    value="3"
-                  />
-                </div>
-                {formik.errors.departments ? (
-                  <div className="text-danger">{formik.errors.departments}</div>
-                ) : null}
-              </Form.Group>
-            </Col>
-          </Row>
-
-          <Form.Control
-            className="mt-3"
-            as="textarea"
-            rows={3}
-            placeholder="Description"
-            id="description"
-            name="description"
-            type="text"
-            onChange={formik.handleChange}
-            value={formik.values.description}
-          />
-          {formik.errors.description ? (
-            <div className="text-danger">{formik.errors.description}</div>
-          ) : null}
-          {/* <h2 className="mt-3 mb-3 text-info text-center">Ações corretivas</h2>
+          <h2 className="mt-3 mb-3 text-info text-center">Ações corretivas</h2>
           <Form.Control
             className="mt-1 mb-1"
             placeholder="What to do"
@@ -177,14 +101,14 @@ const ConformForm = () => {
               {formik.errors.until ? (
                 <div className="text-danger">{formik.errors.until}</div>
               ) : null}
-            </Col> */}
-          {/* </Row> */}
+            </Col>
+          </Row>
           <Button size="lg" className="mt-4" variant="info" type="submit">
-            Adicionar
+            Submit
           </Button>
         </Form>
       </Container>
     </>
   );
 };
-export default ConformForm;
+export default ActionForm;
