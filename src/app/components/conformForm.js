@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
+// comps
+import ConfirmationToast from "./confirmationToast";
 // utils
-import validate from "../utils/validate";
-import handleData from "../utils/handleData";
+import validate from "../utils/validateList";
+import handleList from "../utils/handleList";
 // ui
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -12,31 +14,27 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
 const ConformForm = () => {
+  const [confirmation, setConfirmation] = useState(false);
   const formik = useFormik({
     initialValues: {
       date: "",
       departments: [],
       description: "",
-      what: "",
-      how: "",
-      why: "",
-      where: "",
-      until: "",
     },
     validate,
     onSubmit: (values) => {
-      const newData = handleData(values);
-      console.log("returns:", newData);
+      const newData = handleList(values);
+      setConfirmation(true);
+      console.log("conf:", newData);
     },
   });
   return (
     <>
       <Jumbotron>
-        <h1> Formulário de não conformidade </h1>
+        <h1> Adicionar não conformidade </h1>
       </Jumbotron>
       <Container className="m-2">
         <Form onSubmit={formik.handleSubmit}>
-          {/* <h2 className="mt-3 mb-3 text-info text-center">Não conformidade</h2> */}
           <Row>
             <Col>
               <Form.Control
@@ -45,9 +43,10 @@ const ConformForm = () => {
                 name="date"
                 type="date"
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 value={formik.values.date}
               />
-              {formik.errors.date ? (
+              {formik.touched.date && formik.errors.date ? (
                 <div className="text-danger">{formik.errors.date}</div>
               ) : null}
             </Col>
@@ -59,6 +58,7 @@ const ConformForm = () => {
                 id="checkbox-group"
                 type="text"
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 value={formik.values.departments}
               >
                 <div className="mb-3">
@@ -84,7 +84,7 @@ const ConformForm = () => {
                     value="3"
                   />
                 </div>
-                {formik.errors.departments ? (
+                {formik.touched.departments && formik.errors.departments ? (
                   <div className="text-danger">{formik.errors.departments}</div>
                 ) : null}
               </Form.Group>
@@ -100,88 +100,23 @@ const ConformForm = () => {
             name="description"
             type="text"
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.description}
           />
-          {formik.errors.description ? (
+
+          {formik.touched.description && formik.errors.description ? (
             <div className="text-danger">{formik.errors.description}</div>
-          ) : null}
-          {/* <h2 className="mt-3 mb-3 text-info text-center">Ações corretivas</h2>
-          <Form.Control
-            className="mt-1 mb-1"
-            placeholder="What to do"
-            as="textarea"
-            rows={3}
-            id="what"
-            name="what"
-            type="text"
-            onChange={formik.handleChange}
-            value={formik.values.what}
-          />
-          {formik.errors.what ? (
-            <div className="text-danger">{formik.errors.what}</div>
-          ) : null}
-          <Form.Control
-            className="mt-1 mb-1"
-            placeholder="Why to do it"
-            as="textarea"
-            rows={3}
-            id="why"
-            name="why"
-            type="text"
-            onChange={formik.handleChange}
-            value={formik.values.why}
-          />
-          {formik.errors.why ? (
-            <div className="text-danger">{formik.errors.why}</div>
-          ) : null}
-          <Form.Control
-            className="mt-1 mb-1"
-            placeholder="How to do it"
-            as="textarea"
-            rows={3}
-            id="how"
-            name="how"
-            type="text"
-            onChange={formik.handleChange}
-            value={formik.values.how}
-          />
-          {formik.errors.how ? (
-            <div className="text-danger">{formik.errors.how}</div>
           ) : null}
           <Row>
             <Col>
-              <Form.Control
-                placeholder="where to do it"
-                as="textarea"
-                id="where"
-                name="where"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.where}
-              />
-              {formik.errors.where ? (
-                <div className="text-danger">{formik.errors.where}</div>
-              ) : null}
+              <Button size="lg" className="mt-4" variant="info" type="submit">
+                +
+              </Button>
             </Col>
-
-            <Col>
-              <Form.Control
-                placeholder="Until when"
-                as="textarea"
-                id="until"
-                name="until"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.until}
-              />
-              {formik.errors.until ? (
-                <div className="text-danger">{formik.errors.until}</div>
-              ) : null}
-            </Col> */}
-          {/* </Row> */}
-          <Button size="lg" className="mt-4" variant="info" type="submit">
-            Adicionar
-          </Button>
+            <Col className="m-2">
+              {confirmation ? <ConfirmationToast /> : null}
+            </Col>
+          </Row>
         </Form>
       </Container>
     </>

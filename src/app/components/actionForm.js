@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
+// comps
+import ConfirmationToast from "./confirmationToast";
 // utils
-import validate from "../utils/validate";
-import handleData from "../utils/handleData";
+import validate from "../utils/validateAction";
+import handleActions from "../utils/handleActions";
 // ui
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -11,6 +13,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
 const ActionForm = () => {
+  const [confirm, setConfirm] = useState(false);
   const formik = useFormik({
     initialValues: {
       what: "",
@@ -21,8 +24,9 @@ const ActionForm = () => {
     },
     validate,
     onSubmit: (values) => {
-      const newData = handleData(values);
-      console.log("returns:", newData);
+      const newData = handleActions(values);
+      console.log("returns:", newData, newData.id);
+      setConfirm(true);
     },
   });
   return (
@@ -39,9 +43,10 @@ const ActionForm = () => {
             name="what"
             type="text"
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.what}
           />
-          {formik.errors.what ? (
+          {formik.touched.what && formik.errors.what ? (
             <div className="text-danger">{formik.errors.what}</div>
           ) : null}
           <Form.Control
@@ -53,9 +58,10 @@ const ActionForm = () => {
             name="why"
             type="text"
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.why}
           />
-          {formik.errors.why ? (
+          {formik.touched.why && formik.errors.why ? (
             <div className="text-danger">{formik.errors.why}</div>
           ) : null}
           <Form.Control
@@ -67,9 +73,10 @@ const ActionForm = () => {
             name="how"
             type="text"
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.how}
           />
-          {formik.errors.how ? (
+          {formik.touched.how && formik.errors.how ? (
             <div className="text-danger">{formik.errors.how}</div>
           ) : null}
           <Row>
@@ -81,9 +88,10 @@ const ActionForm = () => {
                 name="where"
                 type="text"
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 value={formik.values.where}
               />
-              {formik.errors.where ? (
+              {formik.touched.where && formik.errors.where ? (
                 <div className="text-danger">{formik.errors.where}</div>
               ) : null}
             </Col>
@@ -96,16 +104,22 @@ const ActionForm = () => {
                 name="until"
                 type="text"
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 value={formik.values.until}
               />
-              {formik.errors.until ? (
+              {formik.touched.until && formik.errors.until ? (
                 <div className="text-danger">{formik.errors.until}</div>
               ) : null}
             </Col>
           </Row>
-          <Button size="lg" className="mt-4" variant="info" type="submit">
-            Submit
-          </Button>
+          <Row>
+            <Col>
+              <Button size="lg" className="mt-4" variant="info" type="submit">
+                Adicionar
+              </Button>
+            </Col>
+            <Col className="m-4"> {confirm ? <ConfirmationToast /> : null}</Col>
+          </Row>
         </Form>
       </Container>
     </>
