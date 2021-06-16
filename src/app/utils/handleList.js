@@ -1,15 +1,12 @@
-import testList from "../baseData/testList.json";
-import getNewId from "../utils/getNewId";
-
-const handleList = (data) => {
-  getNewId(testList["corrective-actions"]);
+const handleList = (data, nextId) => {
   const newData = {
-    id: getNewId(testList["non-conformities"]),
+    id: nextId,
     description: data.description,
     "ocurrence-date": data.date,
     departments: data.departments,
     "corrective-actions": [],
   };
+  console.log("handle list: ", newData);
   return newData;
 };
 

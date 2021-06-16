@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 // comps
 import ConfirmationToast from "./confirmationToast";
 // utils
-// import connect from "../utils/connect";
-import validate from "../utils/validateList";
+import connect from "../utils/connect";
+import getNewId from "../utils/getNewId";
 import handleList from "../utils/handleList";
+import validate from "../utils/validateList";
 // ui
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -15,7 +16,22 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
 const ConformForm = () => {
-  const [confirmation, setConfirmation] = useState(false);
+  //* Data
+  const [showMessage, setShowMessage] = useState(false);
+  const [connectionError, setConnectionError] = useState(false);
+  const [nextId, setNextId] = useState();
+  ///
+  useEffect(() => {
+    let mounted = true;
+    connect("non-conformities", "GET").then((items) => {
+      if (mounted) {
+        setNextId(getNewId(items.message));
+        console.log("pin", items.message, "next: ", nextId);
+      }
+    });
+    return () => (mounted = false);
+  });
+  ///
   const formik = useFormik({
     initialValues: {
       date: "",
@@ -24,12 +40,19 @@ const ConformForm = () => {
     },
     validate,
     onSubmit: (values) => {
-      const newData = handleList(values);
-      setConfirmation(true);
-      console.log("conf:", newData);
+      try {
+        const newData = handleList(values, nextId);
+        console.log("newData from handler:", newData);
+        connect("non-conformities", "POST", newData);
+        setShowMessage(true);
+      } catch (error) {
+        setConnectionError(true);
+        console.log("error:", error);
+      }
     },
   });
 
+  // * View
   return (
     <>
       <Jumbotron>
@@ -116,7 +139,10 @@ const ConformForm = () => {
               </Button>
             </Col>
             <Col className="m-2">
-              {confirmation ? <ConfirmationToast /> : null}
+              {showMessage ? <ConfirmationToast /> : null}
+              {connectionError ? (
+                <h3 className="text-danger">Falha na inserção de dados</h3>
+              ) : null}
             </Col>
           </Row>
         </Form>
