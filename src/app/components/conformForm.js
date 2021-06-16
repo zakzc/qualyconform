@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 // comps
 import ConfirmationToast from "./confirmationToast";
 // utils
+// import connect from "../utils/connect";
 import validate from "../utils/validateList";
 import handleList from "../utils/handleList";
 // ui
@@ -28,6 +29,7 @@ const ConformForm = () => {
       console.log("conf:", newData);
     },
   });
+
   return (
     <>
       <Jumbotron>

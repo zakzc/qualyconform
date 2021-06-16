@@ -1,22 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // comps
 import ActionForm from "./actionForm";
+// utils
+import connect from "../utils/connect";
 // ui
-// import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Row from "react-bootstrap/Row";
-// base data
-import testList from "../baseData/testList.json";
 
 const ListConform = () => {
-  // const [planoDeAç]
-  const orderedTestList = testList["non-conformities"].sort((a, b) =>
-    a["ocurrence-date"] > b["ocurrence-date"] ? -1 : 1
-  );
+  const [orderedList, setOrderedList] = useState([]);
+  useEffect(() => {
+    let mounted = true;
+    connect("non-conformities", "GET").then((items) => {
+      if (mounted) {
+        console.log("pin", items.message);
+        setOrderedList(
+          items.message.sort((a, b) =>
+            a["ocurrence-date"] > b["ocurrence-date"] ? -1 : 1
+          )
+        );
+      }
+    });
+    return () => mounted - false;
+  }, []);
 
   return (
     <>
@@ -24,7 +34,7 @@ const ListConform = () => {
         <h1> Lista de não conformidades</h1>
       </Jumbotron>
       <Container className="m-2">
-        {orderedTestList.map((c, i) => (
+        {orderedList.map((c, i) => (
           <Card className="m-1" key={i}>
             <Card.Header>
               <Row>
@@ -57,10 +67,6 @@ const ListConform = () => {
               </Row>
             </Card.Header>
             <Card.Body>{c.description}</Card.Body>
-            {/* <Col> */}
-            {/* <Button size="sm" className="m-1" variant="info" type="submit">
-                Plano de ação
-              </Button> */}
             <Dropdown className="m-2">
               <Dropdown.Toggle variant="info" id="dropdown-basic">
                 Plano de ação
@@ -69,7 +75,6 @@ const ListConform = () => {
                 <ActionForm />
               </Dropdown.Menu>
             </Dropdown>
-            {/* </Col> */}
           </Card>
         ))}
       </Container>

@@ -25,7 +25,7 @@ const ActionForm = () => {
     validate,
     onSubmit: (values) => {
       const newData = handleActions(values);
-      console.log("returns:", newData, newData.id);
+      console.log("form:", newData, newData.id);
       setConfirm(true);
     },
   });
@@ -36,7 +36,7 @@ const ActionForm = () => {
           <h2 className="mt-3 mb-3 text-info text-center">Ações corretivas</h2>
           <Form.Control
             className="mt-1 mb-1"
-            placeholder="What to do"
+            placeholder="O que fazer"
             as="textarea"
             rows={3}
             id="what"
@@ -51,7 +51,7 @@ const ActionForm = () => {
           ) : null}
           <Form.Control
             className="mt-1 mb-1"
-            placeholder="Why to do it"
+            placeholder="Por que fazer"
             as="textarea"
             rows={3}
             id="why"
@@ -66,7 +66,7 @@ const ActionForm = () => {
           ) : null}
           <Form.Control
             className="mt-1 mb-1"
-            placeholder="How to do it"
+            placeholder="Como fazer"
             as="textarea"
             rows={3}
             id="how"
@@ -82,7 +82,7 @@ const ActionForm = () => {
           <Row>
             <Col>
               <Form.Control
-                placeholder="where to do it"
+                placeholder="Onde fazer"
                 as="textarea"
                 id="where"
                 name="where"
@@ -97,12 +97,13 @@ const ActionForm = () => {
             </Col>
 
             <Col>
+              <span>Até quando</span>
               <Form.Control
-                placeholder="Until when"
-                as="textarea"
+                placeholder="Até quando"
                 id="until"
+                label="Até quando"
                 name="until"
-                type="text"
+                type="date"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.until}
