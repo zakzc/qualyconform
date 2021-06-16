@@ -26,7 +26,6 @@ const ConformForm = () => {
     connect("non-conformities", "GET").then((items) => {
       if (mounted) {
         setNextId(getNewId(items.message));
-        console.log("pin", items.message, "next: ", nextId);
       }
     });
     return () => (mounted = false);

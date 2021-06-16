@@ -1,10 +1,6 @@
-import testList from "../baseData/testList.json";
-import getNewId from "../utils/getNewId";
-
-const handleActions = (data) => {
-  getNewId(testList["corrective-actions"]);
+const handleActions = (data, newId) => {
   const newAction = {
-    id: getNewId(testList["corrective-actions"]),
+    id: newId,
     "what-to-do": data.what,
     "why-to-do-it": data.why,
     "how-to-do-it": data.how,

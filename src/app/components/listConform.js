@@ -12,12 +12,13 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import Row from "react-bootstrap/Row";
 
 const ListConform = () => {
+  //* Data
   const [orderedList, setOrderedList] = useState([]);
+  ///
   useEffect(() => {
     let mounted = true;
     connect("non-conformities", "GET").then((items) => {
       if (mounted) {
-        console.log("pin", items.message);
         setOrderedList(
           items.message.sort((a, b) =>
             a["ocurrence-date"] > b["ocurrence-date"] ? -1 : 1
@@ -25,9 +26,11 @@ const ListConform = () => {
         );
       }
     });
-    return () => mounted - false;
+    return () => (mounted = false);
   }, []);
+  ///
 
+  //* View
   return (
     <>
       <Jumbotron>
@@ -72,7 +75,7 @@ const ListConform = () => {
                 Plano de ação
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <ActionForm />
+                <ActionForm currentListItem={c} />
               </Dropdown.Menu>
             </Dropdown>
           </Card>

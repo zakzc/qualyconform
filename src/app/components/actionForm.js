@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 // comps
 import ConfirmationToast from "./confirmationToast";
+import getNewId from "../utils/getNewId";
 // utils
+import connect from "../utils/connect";
 import validate from "../utils/validateAction";
 import handleActions from "../utils/handleActions";
+import handleListUpdate from "../utils/handleListUpdate";
 // ui
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -12,8 +15,22 @@ import Container from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-const ActionForm = () => {
+const ActionForm = ({ currentListItem }) => {
+  //* Data
   const [confirm, setConfirm] = useState(false);
+  const [newId, setNewId] = useState();
+  const [connectionError, setConnectionError] = useState(false);
+  ///
+  useEffect(() => {
+    let mounted = true;
+    connect("corrective-actions", "GET").then((items) => {
+      if (mounted) {
+        setNewId(getNewId(items.message));
+      }
+    });
+    return () => (mounted = false);
+  });
+  ///
   const formik = useFormik({
     initialValues: {
       what: "",
@@ -24,11 +41,21 @@ const ActionForm = () => {
     },
     validate,
     onSubmit: (values) => {
-      const newData = handleActions(values);
-      console.log("form:", newData, newData.id);
-      setConfirm(true);
+      try {
+        const newData = handleActions(values, newId);
+        const updatedList = handleListUpdate(currentListItem, newId);
+        console.log("newData from handler:", newData);
+        connect("corrective-actions", "POST", newData);
+        connect("/non-conformities/" + currentListItem.id, "PUT", updatedList);
+        setConfirm(true);
+      } catch (error) {
+        setConnectionError(true);
+        console.log("error:", error);
+      }
     },
   });
+
+  //* View
   return (
     <>
       <Container className="m-2">
@@ -119,7 +146,12 @@ const ActionForm = () => {
                 Adicionar
               </Button>
             </Col>
-            <Col className="m-4"> {confirm ? <ConfirmationToast /> : null}</Col>
+            <Col className="m-4">
+              {confirm ? <ConfirmationToast /> : null}{" "}
+              {connectionError ? (
+                <h4 className="text-danger">Falha na inserção de dados</h4>
+              ) : null}
+            </Col>
           </Row>
         </Form>
       </Container>
