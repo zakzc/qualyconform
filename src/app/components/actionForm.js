@@ -17,11 +17,12 @@ import Row from "react-bootstrap/Row";
 
 const ActionForm = ({ currentListItem }) => {
   //* Data
-  const [confirm, setConfirm] = useState(false);
+  const [confirm, setConfirm] = useState();
   const [newId, setNewId] = useState();
   const [connectionError, setConnectionError] = useState(false);
   ///
   useEffect(() => {
+    setConfirm(false);
     let mounted = true;
     connect("corrective-actions", "GET").then((items) => {
       if (mounted) {
@@ -29,7 +30,7 @@ const ActionForm = ({ currentListItem }) => {
       }
     });
     return () => (mounted = false);
-  });
+  }, []);
   ///
   const formik = useFormik({
     initialValues: {
@@ -40,13 +41,14 @@ const ActionForm = ({ currentListItem }) => {
       until: "",
     },
     validate,
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       try {
         const newData = handleActions(values, newId);
         const updatedList = handleListUpdate(currentListItem, newId);
         connect("corrective-actions", "POST", newData);
         connect("/non-conformities/" + currentListItem.id, "PUT", updatedList);
         setConfirm(true);
+        resetForm({});
       } catch (error) {
         setConnectionError(true);
         // console.log("error:", error);
@@ -142,7 +144,7 @@ const ActionForm = ({ currentListItem }) => {
           <Row>
             <Col>
               <Button size="lg" className="mt-4" variant="info" type="submit">
-                Adicionar
+                +
               </Button>
             </Col>
             <Col className="m-4">

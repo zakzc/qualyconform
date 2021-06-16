@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Toast from "react-bootstrap/Toast";
 
 const ConfirmationToast = () => {
+  // * data
   const [showA, setShowA] = useState(true);
   const toggleShowA = () => setShowA(!showA);
 
+  // * view
   return (
     <Toast show={showA} onClose={toggleShowA}>
       <Toast.Header className="bg-info shadow-1-strong">

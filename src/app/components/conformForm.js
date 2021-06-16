@@ -38,12 +38,13 @@ const ConformForm = () => {
       description: "",
     },
     validate,
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       try {
         const newData = handleList(values, nextId);
         console.log("newData from handler:", newData);
         connect("non-conformities", "POST", newData);
         setShowMessage(true);
+        resetForm({});
       } catch (error) {
         setConnectionError(true);
         console.log("error:", error);

@@ -1,5 +1,5 @@
 import React from "react";
-// bootstrap
+// ui
 import Container from "react-bootstrap/Container";
 /// comps
 import Navigation from "./components/navigation";
