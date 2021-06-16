@@ -14,6 +14,9 @@ import Container from "react-bootstrap/Col";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
+// icons
+import { PlusCircle } from "react-bootstrap-icons";
+import { XCircle } from "react-bootstrap-icons";
 
 const ConformForm = () => {
   //* Data
@@ -135,13 +138,18 @@ const ConformForm = () => {
           <Row>
             <Col>
               <Button size="lg" className="mt-4" variant="info" type="submit">
-                +
+                <PlusCircle />
               </Button>
             </Col>
             <Col className="m-2">
               {showMessage ? <ConfirmationToast /> : null}
               {connectionError ? (
-                <h3 className="text-danger">Falha na inserção de dados</h3>
+                <>
+                  <h3 className="text-danger">
+                    <XCircle className="mr-2" />
+                    Falha na inserção de dados
+                  </h3>
+                </>
               ) : null}
             </Col>
           </Row>

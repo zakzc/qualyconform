@@ -14,6 +14,9 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
+// icons
+import { PlusCircle } from "react-bootstrap-icons";
+import { XCircle } from "react-bootstrap-icons";
 
 const ActionForm = ({ currentListItem }) => {
   //* Data
@@ -144,13 +147,18 @@ const ActionForm = ({ currentListItem }) => {
           <Row>
             <Col>
               <Button size="lg" className="mt-4" variant="info" type="submit">
-                +
+                <PlusCircle />
               </Button>
             </Col>
             <Col className="m-4">
               {confirm ? <ConfirmationToast /> : null}{" "}
               {connectionError ? (
-                <h4 className="text-danger">Falha na inserção dos dados</h4>
+                <>
+                  <h3 className="text-danger">
+                    <XCircle className="mr-2" />
+                    Falha na inserção de dados
+                  </h3>
+                </>
               ) : null}
             </Col>
           </Row>
