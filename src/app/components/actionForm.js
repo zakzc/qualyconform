@@ -44,13 +44,12 @@ const ActionForm = ({ currentListItem }) => {
       try {
         const newData = handleActions(values, newId);
         const updatedList = handleListUpdate(currentListItem, newId);
-        console.log("newData from handler:", newData);
         connect("corrective-actions", "POST", newData);
         connect("/non-conformities/" + currentListItem.id, "PUT", updatedList);
         setConfirm(true);
       } catch (error) {
         setConnectionError(true);
-        console.log("error:", error);
+        // console.log("error:", error);
       }
     },
   });
@@ -149,7 +148,7 @@ const ActionForm = ({ currentListItem }) => {
             <Col className="m-4">
               {confirm ? <ConfirmationToast /> : null}{" "}
               {connectionError ? (
-                <h4 className="text-danger">Falha na inserção de dados</h4>
+                <h4 className="text-danger">Falha na inserção dos dados</h4>
               ) : null}
             </Col>
           </Row>
