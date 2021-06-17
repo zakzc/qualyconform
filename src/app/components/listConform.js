@@ -14,16 +14,19 @@ import Row from "react-bootstrap/Row";
 const ListConform = () => {
   //* Data
   const [orderedList, setOrderedList] = useState([]);
+  const [errorOnConnection, setErrorOnConnection] = useState(false);
   ///
   useEffect(() => {
     let mounted = true;
     connect("non-conformities", "GET").then((items) => {
-      if (mounted) {
+      if (mounted && items.success) {
         setOrderedList(
           items.message.sort((a, b) =>
             a["ocurrence-date"] > b["ocurrence-date"] ? -1 : 1
           )
         );
+      } else {
+        setErrorOnConnection(true);
       }
     });
     return () => (mounted = false);
@@ -36,6 +39,11 @@ const ListConform = () => {
       <Jumbotron>
         <h1> Lista de não conformidades</h1>
       </Jumbotron>
+      {errorOnConnection ? (
+        <h3 className="m-5 text-warning">
+          Erro de conexão. Verifique se o backend está online.
+        </h3>
+      ) : null}
       <Container className="m-2">
         {orderedList.map((c, i) => (
           <Card className="m-1" key={i}>

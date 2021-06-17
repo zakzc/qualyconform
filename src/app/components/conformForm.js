@@ -23,12 +23,15 @@ const ConformForm = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [connectionError, setConnectionError] = useState(false);
   const [nextId, setNextId] = useState();
+  const [errorOnConnection, setErrorOnConnection] = useState(false);
   ///
   useEffect(() => {
     let mounted = true;
     connect("non-conformities", "GET").then((items) => {
-      if (mounted) {
+      if (mounted && items.success) {
         setNextId(getNewId(items.message));
+      } else {
+        setErrorOnConnection(true);
       }
     });
     return () => (mounted = false);
@@ -62,6 +65,11 @@ const ConformForm = () => {
         <h1> Adicionar não conformidade </h1>
       </Jumbotron>
       <Container className="m-2">
+        {errorOnConnection ? (
+          <h3 className="m-5 text-warning">
+            Erro de conexão. Verifique se o backend está online.
+          </h3>
+        ) : null}
         <Form onSubmit={formik.handleSubmit}>
           <Row>
             <Col>
