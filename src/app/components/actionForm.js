@@ -47,6 +47,8 @@ const ActionForm = ({ currentListItem }) => {
     onSubmit: (values, { resetForm }) => {
       try {
         const newData = handleActions(values, newId);
+        // updating actions imply updating the list of actions
+        // for the current list item
         const updatedList = handleListUpdate(currentListItem, newId);
         connect("corrective-actions", "POST", newData);
         connect("/non-conformities/" + currentListItem.id, "PUT", updatedList);
