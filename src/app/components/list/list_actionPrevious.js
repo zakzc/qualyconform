@@ -55,7 +55,6 @@ const ActionPrevious = ({ actions }) => {
     <>
       {actions.length > 0 ? (
         <>
-          <h4>Ações definidas:</h4>
           <ListOfActions />
         </>
       ) : (
