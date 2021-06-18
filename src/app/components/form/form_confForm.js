@@ -129,10 +129,7 @@ const ConfForm = ({ nextId }) => {
             />
           ) : null}
           {connectionError ? (
-            <ConfirmationToast
-              success={false}
-              message={"Dados alterados com sucesso"}
-            />
+            <ConfirmationToast success={false} message={"Erro de conexão."} />
           ) : null}
         </Col>
       </Row>

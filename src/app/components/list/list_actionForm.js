@@ -16,7 +16,6 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 // icons
 import { PlusCircle } from "react-bootstrap-icons";
-import { XCircle } from "react-bootstrap-icons";
 
 const ActionForm = ({ currentListItem }) => {
   //* Data
@@ -152,14 +151,17 @@ const ActionForm = ({ currentListItem }) => {
               </Button>
             </Col>
             <Col className="m-4">
-              {confirm ? <ConfirmationToast /> : null}{" "}
+              {confirm ? (
+                <ConfirmationToast
+                  success={true}
+                  message={"Dados alterados com sucesso"}
+                />
+              ) : null}
               {connectionError ? (
-                <>
-                  <h3 className="text-danger">
-                    <XCircle className="mr-2" />
-                    Falha na inserção de dados
-                  </h3>
-                </>
+                <ConfirmationToast
+                  success={false}
+                  message={"Dados alterados com sucesso"}
+                />
               ) : null}
             </Col>
           </Row>

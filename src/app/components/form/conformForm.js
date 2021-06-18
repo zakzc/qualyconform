@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 // comps
 import ConfForm from "./form_confForm";
+import ConfirmationToast from "../views/confirmationToast";
 import Header from "../views/header";
 // utils
 import connect from "../../utils/connect";
@@ -31,9 +32,10 @@ const ConformForm = () => {
       <Header title={"Adicionar não conformidade"} />
       <Container className="m-2">
         {errorOnConnection ? (
-          <h3 className="m-5 text-warning">
-            Erro de conexão. Verifique se o backend está online.
-          </h3>
+          <ConfirmationToast
+            success={false}
+            message={"Erro de conexão. Verifique se o backend está online."}
+          />
         ) : null}
         <ConfForm nextId={nextId} />
       </Container>

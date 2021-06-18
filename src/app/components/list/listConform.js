@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 // comps
-import ActionMenu from "./list_actionMenu";
 import Header from "../views/header";
+import ConfirmationToast from "../views/confirmationToast";
+import ListConf from "./list_listConf";
 // utils
 import connect from "../../utils/connect";
-// ui
-import Card from "react-bootstrap/Card";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 
 const ListConform = () => {
   //* Data
@@ -37,48 +33,12 @@ const ListConform = () => {
     <>
       <Header title={"Lista de não conformidades"} />
       {errorOnConnection ? (
-        <h3 className="m-5 text-warning">
-          Erro de conexão. Verifique se o backend está online.
-        </h3>
+        <ConfirmationToast
+          success={false}
+          message={"Erro de conexão. Verifique se o backend está online."}
+        />
       ) : null}
-      <Container className="m-2">
-        {orderedList.map((c, i) => (
-          <Card className="m-3" key={i}>
-            <Card.Header>
-              <Row>
-                <Col>{c["ocurrence-date"]}</Col>
-                <Col>
-                  <Row>
-                    {c["departments"].map((id, i) => {
-                      if (id === 1)
-                        return (
-                          <span key={i} className="m-1">
-                            Qualidade
-                          </span>
-                        );
-                      if (id === 2)
-                        return (
-                          <span key={i} className="m-1">
-                            Gerência
-                          </span>
-                        );
-                      if (id === 3)
-                        return (
-                          <span key={i} className="m-1">
-                            Vendas
-                          </span>
-                        );
-                      return null;
-                    })}
-                  </Row>
-                </Col>
-              </Row>
-            </Card.Header>
-            <Card.Body>{c.description}</Card.Body>
-            <ActionMenu currentItem={c} />
-          </Card>
-        ))}
-      </Container>
+      <ListConf orderedList={orderedList} />
     </>
   );
 };
