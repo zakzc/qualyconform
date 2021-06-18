@@ -21,6 +21,7 @@ const ActionPrevious = ({ actions }) => {
   const ListOfActions = () => {
     return (
       <>
+        {/* Compares actions with previous actions and returns just the matches */}
         {previousActions
           .filter((f) => actions.includes(f.id))
           .map((i, k) => (

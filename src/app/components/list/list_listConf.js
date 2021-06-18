@@ -40,6 +40,7 @@ const ListConf = ({ orderedList }) => {
                   })}
                 </Row>
               </Col>
+              <Col></Col> <Col></Col>
             </Row>
           </Card.Header>
           <Card.Body>{item.description}</Card.Body>

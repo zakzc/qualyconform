@@ -23,7 +23,7 @@ const ActionMenu = ({ currentItem }) => {
         </Col>
         <Col>
           <Dropdown className="m-2" size="md">
-            <Dropdown.Toggle variant="info" id="dropdown-basic">
+            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
               Ações registradas
             </Dropdown.Toggle>
             <Dropdown.Menu>
@@ -31,6 +31,7 @@ const ActionMenu = ({ currentItem }) => {
             </Dropdown.Menu>
           </Dropdown>
         </Col>
+        <Col></Col> <Col></Col>
       </Row>
     </>
   );
