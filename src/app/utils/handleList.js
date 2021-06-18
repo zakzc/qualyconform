@@ -1,12 +1,14 @@
 const handleList = (data, nextId) => {
+  const formatDepartment = () => {
+    return data.departments.map((n) => parseInt(n));
+  };
   const newData = {
     id: nextId,
     description: data.description,
     "ocurrence-date": data.date,
-    departments: data.departments,
+    departments: formatDepartment(),
     "corrective-actions": [],
   };
-  console.log("handle list: ", newData);
   return newData;
 };
 

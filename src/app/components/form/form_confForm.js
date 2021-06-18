@@ -29,7 +29,6 @@ const ConfForm = ({ nextId }) => {
     onSubmit: (values, { resetForm }) => {
       try {
         const newData = handleList(values, nextId);
-        console.log("newData from handler:", newData);
         connect("non-conformities", "POST", newData);
         setShowMessage(true);
         resetForm({});

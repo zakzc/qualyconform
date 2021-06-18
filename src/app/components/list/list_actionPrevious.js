@@ -16,7 +16,8 @@ const ActionPrevious = ({ actions }) => {
     });
     return () => (mounted = false);
   }, []);
-  console.log("hey", actions.length);
+
+  // * views
   const ListOfActions = () => {
     return (
       <>
@@ -57,7 +58,7 @@ const ActionPrevious = ({ actions }) => {
           <ListOfActions />
         </>
       ) : (
-        <h4>Nenhuma ação definida</h4>
+        <h4>Nenhuma ação definida ou ação ainda em processamento</h4>
       )}
     </>
   );
