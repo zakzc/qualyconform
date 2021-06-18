@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
 // comps
-import ActionForm from "./actionForm";
+import ActionMenu from "./list_actionMenu";
+import Header from "../views/header";
 // utils
-import connect from "../utils/connect";
+import connect from "../../utils/connect";
 // ui
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Col";
-import Dropdown from "react-bootstrap/Dropdown";
-import Jumbotron from "react-bootstrap/Jumbotron";
 import Row from "react-bootstrap/Row";
 
 const ListConform = () => {
   //* Data
-  const [orderedList, setOrderedList] = useState([]);
   const [errorOnConnection, setErrorOnConnection] = useState(false);
+  const [orderedList, setOrderedList] = useState([]);
   ///
   useEffect(() => {
     let mounted = true;
@@ -36,9 +35,7 @@ const ListConform = () => {
   //* View
   return (
     <>
-      <Jumbotron>
-        <h1> Lista de não conformidades</h1>
-      </Jumbotron>
+      <Header title={"Lista de não conformidades"} />
       {errorOnConnection ? (
         <h3 className="m-5 text-warning">
           Erro de conexão. Verifique se o backend está online.
@@ -46,7 +43,7 @@ const ListConform = () => {
       ) : null}
       <Container className="m-2">
         {orderedList.map((c, i) => (
-          <Card className="m-1" key={i}>
+          <Card className="m-3" key={i}>
             <Card.Header>
               <Row>
                 <Col>{c["ocurrence-date"]}</Col>
@@ -78,14 +75,7 @@ const ListConform = () => {
               </Row>
             </Card.Header>
             <Card.Body>{c.description}</Card.Body>
-            <Dropdown className="m-2">
-              <Dropdown.Toggle variant="info" id="dropdown-basic">
-                Plano de ação
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <ActionForm currentListItem={c} />
-              </Dropdown.Menu>
-            </Dropdown>
+            <ActionMenu currentItem={c} />
           </Card>
         ))}
       </Container>

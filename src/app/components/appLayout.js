@@ -2,8 +2,8 @@ import React from "react";
 // ui
 import Container from "react-bootstrap/Container";
 /// comps
-import Navigation from "./components/navigation";
-import Routes from "./components/routes";
+import Navigation from "./views/navigation";
+import Routes from "./routes";
 
 const AppLayout = () => {
   return (

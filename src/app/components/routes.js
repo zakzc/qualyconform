@@ -6,8 +6,8 @@ import {
   Route,
 } from "react-router-dom";
 // comps
-import ConformForm from "./conformForm";
-import ListConform from "./listConform";
+import ConformForm from "./form/conformForm";
+import ListConform from "./list/listConform";
 
 const Routes = () => {
   return (

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 // comps
-import ConfirmationToast from "./confirmationToast";
-import getNewId from "../utils/getNewId";
+import ConfirmationToast from "../views/confirmationToast";
+import getNewId from "../../utils/getNewId";
 // utils
-import connect from "../utils/connect";
-import validate from "../utils/validateAction";
-import handleActions from "../utils/handleActions";
-import handleListUpdate from "../utils/handleListUpdate";
+import connect from "../../utils/connect";
+import validate from "../../utils/validateAction";
+import handleActions from "../../utils/handleActions";
+import handleListUpdate from "../../utils/handleListUpdate";
 // ui
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -66,7 +66,6 @@ const ActionForm = ({ currentListItem }) => {
     <>
       <Container className="m-2">
         <Form onSubmit={formik.handleSubmit}>
-          <h2 className="mt-3 mb-3 text-info text-center">Ações corretivas</h2>
           <Form.Control
             className="mt-1 mb-1"
             placeholder="O que fazer"
